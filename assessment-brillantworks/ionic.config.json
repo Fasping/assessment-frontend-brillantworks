@@ -1,0 +1,7 @@
+{
+  "name": "assessment-brillantworks",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
