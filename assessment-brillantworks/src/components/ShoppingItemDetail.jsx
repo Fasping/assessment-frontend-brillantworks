@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   IonPage,
   IonHeader,
@@ -7,17 +8,35 @@ import {
 } from "@ionic/react";
 
 const ShoppingItemDetail = ({ item }) => {
+  const [shoppingItem, setShoppingItem] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `https://api.winnerheads.com/api/marketplace/getShoppingItemByIdString/winnerheads/${item}`
+      );
+      const data = await response.json();
+      setShoppingItem(data);
+    };
+
+    fetchData();
+  }, [item]);
+
+  if (!shoppingItem) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>{item.shoppingItem.name}</IonTitle>
+          <IonTitle>{shoppingItem.name}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <div>{item.shoppingItem.description}</div>
+        <div>{shoppingItem.description}</div>
         <ul>
-          {item.shoppingItem.price
+          {shoppingItem.price
             .filter((price) => price.currencyCode === "SEK")
             .map((price) => (
               <li key={price.currencyCode}>
@@ -25,8 +44,8 @@ const ShoppingItemDetail = ({ item }) => {
               </li>
             ))}
         </ul>
-        <div>{item.shoppingItem.premium.individual}</div>
-        <div>{item.shoppingItem.premium.team}</div>
+        <div>{shoppingItem.premium.individual}</div>
+        <div>{shoppingItem.premium.team}</div>
       </IonContent>
     </IonPage>
   );

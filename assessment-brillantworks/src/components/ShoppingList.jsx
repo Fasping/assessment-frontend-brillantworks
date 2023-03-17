@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { IonItem, IonRouterLink } from "@ionic/react";
-import { useHistory } from "react-router";
 
 const ShoppingList = () => {
   const [shoppingItems, setShoppingItems] = useState([]);
-  const history = useHistory();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,15 +21,11 @@ const ShoppingList = () => {
     fetchData();
   }, []);
 
-  const handleItemClick = (itemId) => {
-    history.push(`/shopping-item/${itemId}`);
-  };
-
   return (
     <>
       {shoppingItems.map((item) => (
         <IonItem key={item.shoppingItem.id}>
-          <IonRouterLink onClick={() => handleItemClick(item.shoppingItem.id)}>
+          <IonRouterLink routerLink={`/shopping-item/${item.shoppingItem.id}`}>
             <h2>{item.shoppingItem.name}</h2>
             <div>{item.shoppingItem.description}</div>
             <ul>
