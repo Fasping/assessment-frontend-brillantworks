@@ -7,15 +7,18 @@ import {
   IonContent,
 } from "@ionic/react";
 
-const ShoppingItemDetail = ({ item }) => {
+const ShoppingItemDetail = ({ match }) => {
+  const item = match.params.id;
+
   const [shoppingItem, setShoppingItem] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `https://api.winnerheads.com/api/marketplace/getShoppingItemByIdString/winnerheads/${item}`
+        `https://api.winnerheads.com/api/shopitems/${item}`
       );
       const data = await response.json();
+      console.log(data);
       setShoppingItem(data);
     };
 
@@ -44,8 +47,8 @@ const ShoppingItemDetail = ({ item }) => {
               </li>
             ))}
         </ul>
-        <div>{shoppingItem.premium.individual}</div>
-        <div>{shoppingItem.premium.team}</div>
+        {/* <div>{shoppingItem.premium.individual}</div>
+        <div>{shoppingItem.premium.team}</div> */}
       </IonContent>
     </IonPage>
   );

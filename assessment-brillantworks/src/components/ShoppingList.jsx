@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { IonItem, IonRouterLink } from "@ionic/react";
+import { IonItem, IonPage, IonRouterLink } from "@ionic/react";
 
 const ShoppingList = () => {
   const [shoppingItems, setShoppingItems] = useState([]);
@@ -22,10 +22,13 @@ const ShoppingList = () => {
   }, []);
 
   return (
-    <>
+    <IonPage>
       {shoppingItems.map((item) => (
         <IonItem key={item.shoppingItem.id}>
-          <IonRouterLink routerLink={`/shopping-item/${item.shoppingItem.id}`}>
+          <IonRouterLink
+            routerDirection="forward"
+            routerLink={`/shopping-item/${item.shoppingItem.id}`}
+          >
             <h2>{item.shoppingItem.name}</h2>
             <div>{item.shoppingItem.description}</div>
             <ul>
@@ -40,7 +43,7 @@ const ShoppingList = () => {
           </IonRouterLink>
         </IonItem>
       ))}
-    </>
+    </IonPage>
   );
 };
 
