@@ -6,6 +6,7 @@ import {
   IonPage,
   IonRouterLink,
   IonSpinner,
+  IonTitle,
 } from "@ionic/react";
 
 const ShoppingList = () => {
@@ -44,8 +45,8 @@ const ShoppingList = () => {
             routerDirection="forward"
             routerLink={`/shopping-item/${item.shoppingItem.id}`}
           >
-            <h2>{item.shoppingItem.name}</h2>
-            <div>{item.shoppingItem.description}</div>
+            <IonTitle>{item.shoppingItem.name_en}</IonTitle>
+            <p>{item.shoppingItem.description_en}</p>
             <IonList>
               {item.shoppingItem.price
                 .filter((price) => price.currencyCode === "SEK")
