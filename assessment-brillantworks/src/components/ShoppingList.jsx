@@ -1,16 +1,23 @@
 import { useState, useEffect } from "react";
 import {
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonImg,
   IonItem,
   IonLabel,
-  IonList,
   IonPage,
   IonRouterLink,
   IonSpinner,
-  IonTitle,
 } from "@ionic/react";
 
 const ShoppingList = () => {
   const [shoppingItems, setShoppingItems] = useState([]);
+  const [marketplace, setMarketplace] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,6 +33,7 @@ const ShoppingList = () => {
           (item) => item.shoppingItem
         );
         setShoppingItems(shoppingItems);
+        setMarketplace(data.space);
       } catch (error) {
         console.error(error);
       }
@@ -33,34 +41,53 @@ const ShoppingList = () => {
     fetchData();
   }, []);
 
-  if (!shoppingItems) {
+  if (!marketplace) {
     return <IonSpinner name="dots"></IonSpinner>;
   }
 
   return (
     <IonPage>
-      {shoppingItems.map((item) => (
-        <IonItem key={item.shoppingItem.id}>
-          <IonRouterLink
-            routerDirection="forward"
-            routerLink={`/shopping-item/${item.shoppingItem.id}`}
-          >
-            <IonTitle>{item.shoppingItem.name_en}</IonTitle>
-            <p>{item.shoppingItem.description_en}</p>
-            <IonList>
-              {item.shoppingItem.price
-                .filter((price) => price.currencyCode === "SEK")
-                .map((price) => (
-                  <IonItem key={price.currencyCode}>
+      <IonCard>
+        <IonImg src={marketplace.posterImage.imageUrl} />
+        <IonCardHeader>
+          <IonCardTitle>{marketplace.title_en}</IonCardTitle>
+          <IonCardContent>{marketplace.description_en}</IonCardContent>
+        </IonCardHeader>
+      </IonCard>
+      <IonGrid>
+        <IonRow>
+          {shoppingItems.map((item, index) => {
+            const price = item.shoppingItem.price.find(
+              (price) => price.currencyCode === "SEK"
+            );
+            return (
+              <IonCol size="6" key={item.shoppingItem.id}>
+                <IonCard>
+                  <IonImg src={item.shoppingItem.promoSpace.imageUrl} />
+                  <IonItem lines="none">
                     <IonLabel>
                       {price.value} {price.currencyCode}/MONTH
                     </IonLabel>
                   </IonItem>
-                ))}
-            </IonList>
-          </IonRouterLink>
-        </IonItem>
-      ))}
+                  <IonCardContent>
+                    <IonCardTitle>{item.shoppingItem.name_en}</IonCardTitle>
+                    <IonCardContent>
+                      {item.shoppingItem.description_en}
+                    </IonCardContent>
+                  </IonCardContent>
+                  <IonRouterLink
+                    routerDirection="forward"
+                    routerLink={`/shopping-item/${item.shoppingItem.id}`}
+                    className="card-link"
+                  >
+                    View Item
+                  </IonRouterLink>
+                </IonCard>
+              </IonCol>
+            );
+          })}
+        </IonRow>
+      </IonGrid>
     </IonPage>
   );
 };
