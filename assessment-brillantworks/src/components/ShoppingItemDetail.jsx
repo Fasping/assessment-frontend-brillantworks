@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import {
   IonPage,
-  IonHeader,
   IonToolbar,
   IonTitle,
   IonContent,
+  IonButton,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonSpinner,
 } from "@ionic/react";
 
 const ShoppingItemDetail = ({ match }) => {
@@ -26,29 +30,29 @@ const ShoppingItemDetail = ({ match }) => {
   }, [item]);
 
   if (!shoppingItem) {
-    return <div>Loading...</div>;
+    return <IonSpinner name="dots"></IonSpinner>;
   }
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>{shoppingItem.name}</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <IonToolbar>
+        <IonTitle>{shoppingItem.name_en}</IonTitle>
+      </IonToolbar>
       <IonContent>
-        <div>{shoppingItem.description}</div>
-        <ul>
+        <div>{shoppingItem.description_en}</div>
+        <IonList>
           {shoppingItem.price
             .filter((price) => price.currencyCode === "SEK")
             .map((price) => (
-              <li key={price.currencyCode}>
-                {price.value} {price.currencyCode}
-              </li>
+              <IonItem>
+                <IonLabel key={price.currencyCode}>
+                  <IonButton key={price.currencyCode}>
+                    {price.value} {price.currencyCode}/MONTH
+                  </IonButton>
+                </IonLabel>
+              </IonItem>
             ))}
-        </ul>
-        {/* <div>{shoppingItem.premium.individual}</div>
-        <div>{shoppingItem.premium.team}</div> */}
+        </IonList>
       </IonContent>
     </IonPage>
   );
