@@ -48,11 +48,12 @@ const ShoppingList = () => {
   return (
     <IonPage>
       <IonCard>
-        <IonImg src={marketplace.posterImage.imageUrl} />
         <IonCardHeader>
           <IonCardTitle>{marketplace.title_en}</IonCardTitle>
           <IonCardContent>{marketplace.description_en}</IonCardContent>
         </IonCardHeader>
+
+        <IonImg src={marketplace.posterImage.imageUrl} />
       </IonCard>
       <IonGrid>
         <IonRow>
@@ -62,8 +63,10 @@ const ShoppingList = () => {
             );
             return (
               <IonCol size="6" key={item.shoppingItem.id}>
-                <IonCard>
-                  <IonImg src={item.shoppingItem.promoSpace.imageUrl} />
+                <IonCard routerLink={`/shopping-item/${item.shoppingItem.id}`}>
+                  <IonImg
+                    src={item.shoppingItem.promoSpace.posterImage.imageUrl}
+                  />
                   <IonItem lines="none">
                     <IonLabel>
                       {price.value} {price.currencyCode}/MONTH
@@ -75,13 +78,6 @@ const ShoppingList = () => {
                       {item.shoppingItem.description_en}
                     </IonCardContent>
                   </IonCardContent>
-                  <IonRouterLink
-                    routerDirection="forward"
-                    routerLink={`/shopping-item/${item.shoppingItem.id}`}
-                    className="card-link"
-                  >
-                    View Item
-                  </IonRouterLink>
                 </IonCard>
               </IonCol>
             );
