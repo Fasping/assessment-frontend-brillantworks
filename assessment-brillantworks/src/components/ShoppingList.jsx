@@ -11,7 +11,6 @@ import {
   IonItem,
   IonLabel,
   IonPage,
-  IonRouterLink,
   IonSpinner,
 } from "@ionic/react";
 
@@ -49,7 +48,7 @@ const ShoppingList = () => {
     <IonPage>
       <IonCard>
         <IonCardHeader>
-          <IonCardTitle>{marketplace.title_en}</IonCardTitle>
+          <IonCardTitle color="warning">{marketplace.title_en}</IonCardTitle>
           <IonCardContent>{marketplace.description_en}</IonCardContent>
         </IonCardHeader>
 

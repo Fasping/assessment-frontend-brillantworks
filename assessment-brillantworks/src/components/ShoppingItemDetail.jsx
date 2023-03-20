@@ -47,7 +47,7 @@ const ShoppingItemDetail = ({ match }) => {
       <IonHeader>
         <IonCard>
           <IonCardHeader>
-            <IonCardTitle>{shoppingItem.name_en}</IonCardTitle>
+            <IonCardTitle color="warning">{shoppingItem.name_en}</IonCardTitle>
             <IonCardSubtitle>{shoppingItem.description_en}</IonCardSubtitle>
           </IonCardHeader>
         </IonCard>
@@ -59,7 +59,7 @@ const ShoppingItemDetail = ({ match }) => {
             .map((price, index) => (
               <IonItem key={index}>
                 <IonLabel>
-                  <IonButton>
+                  <IonButton color="danger">
                     {price.value} {price.currencyCode}/MONTH
                   </IonButton>
                 </IonLabel>
@@ -68,24 +68,16 @@ const ShoppingItemDetail = ({ match }) => {
         </IonList>
         <IonCard>
           <IonCardHeader>
-            <IonCardTitle>Description</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <h2>{shoppingItem.description_en}</h2>
-          </IonCardContent>
-        </IonCard>
-        <IonCard>
-          <IonCardHeader>
             <IonCardTitle>Why get Premium?</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            <ul>
-              <li>Item 1</li>
-              <li>Item 2</li>
-              <li>Item 3</li>
-              <li>Item 4</li>
-              <li>Item 5</li>
-            </ul>
+            <IonList lines="none">
+              <IonItem>Add free</IonItem>
+              <IonItem>Item 2</IonItem>
+              <IonItem>Item 3</IonItem>
+              <IonItem>Item 4</IonItem>
+              <IonItem>Item 5</IonItem>
+            </IonList>
           </IonCardContent>
         </IonCard>
       </IonContent>
